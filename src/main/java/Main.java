@@ -19,12 +19,13 @@ public class Main {
         boolean moreInput = true;
         while (moreInput) {
             System.out.println("Please choose an option from the menu:");
-            System.out.println("1. Input a message");
-            System.out.println("2. Print all messages in the stack");
-            System.out.println("3. Delete a message from the stack");
-            System.out.println("4. Update a message in the stack");
-            System.out.println("5. Find the massages");
-            System.out.println("6. Exit the program");
+            System.out.println("1. Input message");
+            System.out.println("2. Receive messages");
+            System.out.println("3. Print all messages in the stack");
+            System.out.println("4. Delete a message from the stack");
+            System.out.println("5. Update a message in the stack");
+            System.out.println("6. Find the massages");
+            System.out.println("7. Exit the program");
             int option = scanner.nextInt();
             scanner.nextLine();
             switch (option) {
@@ -33,8 +34,8 @@ public class Main {
                     while (repeat) {
                         Message message = inputMessage(scanner);
                         if (message != null) {
-                            stack.push(message);
-                            System.out.println("The message has been pushed to the stack.");
+                            queue.enqueue(message); // add the message to the queue
+                            System.out.println("The message has been added to the queue.");
                         }
                         System.out.println("Do you want to input another message? (Y/N)");
                         String answer = scanner.nextLine().trim().toUpperCase();
@@ -44,12 +45,24 @@ public class Main {
                     }
                     break;
                 case 2:
+                    if (!queue.isEmpty()){
+                        while (!queue.isEmpty()) {
+                            Message dequeued = queue.dequeue();
+                            stack.push(dequeued);
+                        }
+                        System.out.println("The message has been pushed to the stack.");
+                    }else {
+                        System.out.println("Nothing in the queue");
+                    }
+
+                    break;
+                case 3:
                     System.out.println("The messages in the stack are:");
                     for (Message m : stack) {
                         System.out.println(m);
                     }
                     break;
-                case 3:
+                case 4:
                     System.out.println("Enter the index of the message you want to delete (from 0 to " + (stack.size() - 1) + "):");
                      index = scanner.nextInt();
                     scanner.nextLine();
@@ -60,7 +73,7 @@ public class Main {
                         System.out.println("Invalid index.");
                     }
                     break;
-                case 4:
+                case 5:
                     System.out.println("Enter the index of the message you want to update (from 0 to " + (stack.size() - 1) + "):");
                     index = scanner.nextInt();
                     scanner.nextLine();
@@ -76,10 +89,10 @@ public class Main {
                         System.out.println("Invalid index.");
                     }
                     break;
-                case 5:
+                case 6:
                     stack.find(scanner);
                     break;
-                case 6:
+                case 7:
                     moreInput = false;
                     break;
                 default:
@@ -87,9 +100,6 @@ public class Main {
             }
         }
         scanner.close();
-        for (Message message : queue) {
-            stack.push(message);
-        }
     }
     public static Message inputMessage(Scanner scanner) {
         System.out.println("Please enter a message:");

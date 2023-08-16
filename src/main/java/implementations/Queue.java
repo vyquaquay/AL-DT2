@@ -14,31 +14,39 @@ public class Queue<E> implements AbstractQueue<E> {
         }
     }
     private Node<E> head;
+    private Node<E> tail;
     public Queue() {
         this.head = null;
+        this.tail = null;
     }
-    @Override
-    public void offer(E element) {
+    public void enqueue(E element) {
         Node<E> newNode = new Node<>(element);
         if (head == null) {
-            head = newNode;
+            head = tail = newNode;
         } else {
-            Node<E> currentNode = head;
-            while (currentNode.next != null) {
-                currentNode = currentNode.next;
-            }
-            currentNode.next = newNode;
+            tail.next = newNode;
+            tail = newNode;
         }
     }
-    @Override
-    public E poll() {
+    public E dequeue() {
         if (head == null) {
             return null;
         } else {
-            Node<E> tempNode = head;
+            E element = head.data;
             head = head.next;
-            return tempNode.data;
+            if (head == null) {
+                tail = null;
+            }
+            return element;
         }
+    }
+    @Override
+    public void offer(E element) {
+        enqueue(element); // call the enqueue method
+    }
+    @Override
+    public E poll() {
+        return dequeue(); // call the dequeue method
     }
     @Override
     public E peek() {
@@ -84,4 +92,5 @@ public class Queue<E> implements AbstractQueue<E> {
         };
     }
 }
+
 
