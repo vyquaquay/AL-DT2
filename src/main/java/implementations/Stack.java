@@ -3,6 +3,7 @@ package implementations;
 import interfaces.AbstractStack;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import java.util.Scanner;
 
 public class Stack<E> implements AbstractStack<E> {
     private static class Node<E> {
@@ -78,50 +79,66 @@ public class Stack<E> implements AbstractStack<E> {
             }
         };
     }
-
-    // a method to remove an element from the stack by index
     public E remove(int index) {
-        if (index < 0 || index >= size()) { // if the index is invalid, return null
+        if (index < 0 || index >= size()) {
             return null;
-        } else if (index == 0) { // if the index is 0, call the pop method
+        } else if (index == 0) {
             return pop();
-        } else { // otherwise, traverse the stack until the index is reached
-            Node<E> previousNode = null; // keep track of the previous node
-            Node<E> currentNode = head; // start from the head node
-            int count = 0; // keep track of the current index
-            while (count < index) { // loop until the index is reached
-                previousNode = currentNode; // update the previous node
-                currentNode = currentNode.next; // move to the next node
-                count++; // increment the count
+        } else {
+            Node<E> previousNode = null;
+            Node<E> currentNode = head;
+            int count = 0;
+            while (count < index) {
+                previousNode = currentNode;
+                currentNode = currentNode.next;
+                count++;
             }
-            previousNode.next = currentNode.next; // unlink the current node from the stack
-            return currentNode.data; // return the data of the removed node
+            previousNode.next = currentNode.next;
+            return currentNode.data;
         }
     }
     public E get(int index) {
-        if (index < 0 || index >= size()) { // if the index is invalid, return null
+        if (index < 0 || index >= size()) {
             return null;
-        } else { // otherwise, traverse the stack until the index is reached
-            Node<E> currentNode = head; // start from the head node
-            int count = 0; // keep track of the current index
-            while (count < index) { // loop until the index is reached
-                currentNode = currentNode.next; // move to the next node
-                count++; // increment the count
+        } else {
+            Node<E> currentNode = head;
+            int count = 0;
+            while (count < index) {
+                currentNode = currentNode.next;
+                count++;
             }
-            return currentNode.data; // return the data of the node at the index
+            return currentNode.data;
         }
     }
     public void set(int index, E element) {
         if (index < 0 || index >= size()) {
             return;
         } else {
-            Node<E> currentNode = head; // start from the head node
-            int count = 0; // keep track of the current index
-            while (count < index) { // loop until the index is reached
-                currentNode = currentNode.next; // move to the next node
-                count++; // increment the count
+            Node<E> currentNode = head;
+            int count = 0;
+            while (count < index) {
+                currentNode = currentNode.next;
+                count++;
             }
-            currentNode.data = element; // set the data of the node at the index to the new element
+            currentNode.data = element;
+        }
+    }
+    public void find(Scanner scanner) {
+        System.out.println("Please enter what you want to find:");
+        String input = scanner.nextLine();
+        int count = 0;
+        Node<E> currentNode = head;
+        while (currentNode != null) {
+            if (currentNode.data.toString().contains(input)) {
+                System.out.println("The message is found in the stack: " + currentNode.data);
+                count++;
+            }
+            currentNode = currentNode.next;
+        }
+        if (count == 0) {
+            System.out.println("The input is not found in the stack.");
+        } else {
+            System.out.println("There are " + count + " messages that contain the input.");
         }
     }
 }

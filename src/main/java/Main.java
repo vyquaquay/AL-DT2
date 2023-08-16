@@ -23,7 +23,8 @@ public class Main {
             System.out.println("2. Print all messages in the stack");
             System.out.println("3. Delete a message from the stack");
             System.out.println("4. Update a message in the stack");
-            System.out.println("5. Exit the program");
+            System.out.println("5. Find the massages");
+            System.out.println("6. Exit the program");
             int option = scanner.nextInt();
             scanner.nextLine();
             switch (option) {
@@ -76,6 +77,9 @@ public class Main {
                     }
                     break;
                 case 5:
+                    stack.find(scanner);
+                    break;
+                case 6:
                     moreInput = false;
                     break;
                 default:
