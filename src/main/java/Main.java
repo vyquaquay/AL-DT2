@@ -33,6 +33,7 @@ public class Main {
                     break;
                 case 5:
                     Input = false;
+                    System.out.println("Thanks for using ThisIsNotDiscord2");
                     break;
                 default:
                     System.out.println("Invalid option.");
