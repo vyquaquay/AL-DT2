@@ -22,10 +22,8 @@ public class Main {
             System.out.println("1. Input message");
             System.out.println("2. Receive messages");
             System.out.println("3. Print all messages in the stack");
-            System.out.println("4. Delete a message from the stack");
-            System.out.println("5. Update a message in the stack");
-            System.out.println("6. Find the massages");
-            System.out.println("7. Exit the program");
+            System.out.println("4. Find the massages");
+            System.out.println("5. Exit the program");
             int option = scanner.nextInt();
             scanner.nextLine();
             switch (option) {
@@ -63,36 +61,9 @@ public class Main {
                     }
                     break;
                 case 4:
-                    System.out.println("Enter the index of the message you want to delete (from 0 to " + (stack.size() - 1) + "):");
-                     index = scanner.nextInt();
-                    scanner.nextLine();
-                    if (index >= 0 && index < stack.size()) {
-                        Message deleted = stack.remove(index);
-                        System.out.println("The deleted message is: " + deleted);
-                    } else {
-                        System.out.println("Invalid index.");
-                    }
-                    break;
-                case 5:
-                    System.out.println("Enter the index of the message you want to update (from 0 to " + (stack.size() - 1) + "):");
-                    index = scanner.nextInt();
-                    scanner.nextLine();
-                    if (index >= 0 && index < stack.size()) {
-                        Message old = stack.get(index);
-                        System.out.println("The old message is: " + old);
-                        Message newMessage = inputMessage(scanner);
-                        if (newMessage != null) {
-                            stack.set(index, newMessage);
-                            System.out.println("The updated message is: " + newMessage);
-                        }
-                    } else {
-                        System.out.println("Invalid index.");
-                    }
-                    break;
-                case 6:
                     stack.find(scanner);
                     break;
-                case 7:
+                case 5:
                     moreInput = false;
                     break;
                 default:
@@ -105,7 +76,7 @@ public class Main {
         System.out.println("Please enter a message:");
         String input = scanner.nextLine();
         try {
-            if (input == null || input.isEmpty() || input.split(" ").length > 250) {
+            if (input == null || input.isEmpty() || input.trim().length() > 250) {
                 throw new IllegalArgumentException("Invalid input. The message must not be null or empty or over 250 words.");
             } else {
                 return new Message(input);

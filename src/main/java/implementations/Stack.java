@@ -79,37 +79,6 @@ public class Stack<E> implements AbstractStack<E> {
             }
         };
     }
-    public E remove(int index) {
-        if (index < 0 || index >= size()) {
-            return null;
-        } else if (index == 0) {
-            return pop();
-        } else {
-            Node<E> previousNode = null;
-            Node<E> currentNode = head;
-            int count = 0;
-            while (count < index) {
-                previousNode = currentNode;
-                currentNode = currentNode.next;
-                count++;
-            }
-            previousNode.next = currentNode.next;
-            return currentNode.data;
-        }
-    }
-    public E get(int index) {
-        if (index < 0 || index >= size()) {
-            return null;
-        } else {
-            Node<E> currentNode = head;
-            int count = 0;
-            while (count < index) {
-                currentNode = currentNode.next;
-                count++;
-            }
-            return currentNode.data;
-        }
-    }
     public void set(int index, E element) {
         if (index < 0 || index >= size()) {
             return;
