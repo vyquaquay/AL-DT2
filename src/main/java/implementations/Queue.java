@@ -3,6 +3,7 @@ package implementations;
 import interfaces.AbstractQueue;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import java.util.Scanner;
 
 public class Queue<E> implements AbstractQueue<E> {
     private static class Node<E> {
@@ -56,7 +57,6 @@ public class Queue<E> implements AbstractQueue<E> {
             return head.data;
         }
     }
-
     @Override
     public int size() {
         int count = 0;
@@ -90,6 +90,29 @@ public class Queue<E> implements AbstractQueue<E> {
                 }
             }
         };
+    }
+    public static void queueMessage(Scanner scanner, Queue<Message> queue) {
+        boolean repeat = true;
+        while (repeat) {
+            System.out.println("Please enter a message:");
+            String input = scanner.nextLine();
+            try {
+                if (input == null || input.isEmpty() || input.trim().length() > 250) {
+                    throw new IllegalArgumentException("Invalid input. The message must not be null or empty or over 250 words.");
+                } else {
+                    Message message = new Message(input);
+                    queue.enqueue(message); // add the message to the queue
+                    System.out.println("The message has been added to the queue.");
+                }
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+            System.out.println("Do you want to input another message? (Y/N)");
+            String answer = scanner.nextLine().trim().toUpperCase();
+            if (!answer.equals("Y")) {
+                repeat = false;
+            }
+        }
     }
 }
 

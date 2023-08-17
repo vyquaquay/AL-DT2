@@ -113,5 +113,16 @@ public class Stack<E> implements AbstractStack<E> {
             System.out.println("There are " + count + " messages that contain the input.");
         }
     }
+    public static void messageReceive(Queue<Message> queue, Stack<Message> stack) {
+        if (!queue.isEmpty()) {
+            while (!queue.isEmpty()) {
+                Message dequeued = queue.dequeue();
+                stack.push(dequeued);
+            }
+            System.out.println("The message has been pushed to the stack.");
+        } else {
+            System.out.println("Nothing in the queue");
+        }
+    }
 }
 
