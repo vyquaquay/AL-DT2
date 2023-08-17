@@ -96,6 +96,7 @@ public class Stack<E> implements AbstractStack<E> {
         System.out.println("Please enter what you want to find:");
         String input = scanner.nextLine();
         int count = 0;
+        long startTime = System.nanoTime();
         Node<E> currentNode = head;
         while (currentNode != null) {
             if (currentNode.data.toString().contains(input)) {
@@ -104,6 +105,8 @@ public class Stack<E> implements AbstractStack<E> {
             }
             currentNode = currentNode.next;
         }
+        long endTime = System.nanoTime();
+        System.out.println("Time need to find: " + (endTime - startTime));
         if (count == 0) {
             System.out.println("The input is not found in the stack.");
         } else {
